@@ -7,18 +7,45 @@ print(data.head())
 
 X = data.iloc[:, 3:13]
 y = data.iloc[:, 13]
+
 geo = pd.get_dummies(X['Geography'],drop_first=True)
 gen = pd.get_dummies(X['Gender'], drop_first=True)
+
 Geography = geo.copy()
 Gender = gen.copy()
+
 X = X.drop(['Gender','Geography'], axis = 1)
 X = pd.concat([X,Gender, Geography],axis=1)
+
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=0)
+
 from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
+
+from tensorflow import keras
+from keras.models import Sequential
+from keras.layers import Dense, Dropout
+
+classifier = Sequential()
+#Added input layer
+classifier.add(Dense(units=10, kernel_initializer = 'he_uniform', activation='relu', input_dim=X_train.shape[1]))
+#Adding Hidden layer
+classifier.add(Dense(units=6, kernel_initializer = 'he_uniform', activation = 'relu'))
+#Adding Output Layer
+classifier.add(Dense(units=1, kernel_initializer='glorat_uniform', activation = 'sigmoid'))
+
+classifier.compile(optimizer='Adamax', loss='binary_crossentropy', metrics=['accuracy'])
+
+model_result = classifier.fit(X_train, y_train, validation_split=0.33, batch_size=10, epochs=100)
+y_pred = classifier.predict(X_test)
+y_pred = (y+pred>0.5)
+
+from sklearn.metrics import accuracy_score
+score = accuracy_score(y_pred, y_test)
+print("Score is : "+str(score))
 
 from tensorflow import keras
 from keras.models import Sequential
@@ -51,11 +78,15 @@ activations = ['sigmoid', 'relu']
 param_grid = dict(layers=layers, activation = activations, batch_size=batches, epochs=epochs)
 grid = GridSearchCV(estimator=model, param_grid=param_grid)
 
-import time
-t0 = time.time()
 grid_result = grid.fit(X_train, y_train)
-#t1=time.time
-#print(t1-t0)
 
-print(grid_result.best_score_)
-print(grid_result.best_params_)
+best_score = grid_result.best_score_
+best_param = grid_result.best_params_
+best_estimator = grid_result.best_estimator_
+
+print("Best Score After Hyper Paramter Tuning : "+str(best_score))
+print("Best Parametres are : "+str(best_param))
+
+
+
+
