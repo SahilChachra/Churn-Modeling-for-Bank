@@ -7,8 +7,8 @@
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="./css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="./css2/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="../static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="../static/css/x.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 
 <body>
@@ -44,13 +44,26 @@
             <br>
             <input placeholder="Credict Score" name="CreditScore" id="first_name" type="text" class="validate">
         </div>
+
+        <div class="input-field col s4">
+            <label for="_name"><b>Location</b></label>
+            <br>
+            <input id="_name" name="Location" placeholder="SPAIN/FRANCE/GERMANY" type="text" class="validate">
+        </div>
+
+        <div class="input-field col s4">
+            <label for="_name"><b>Gender</b></label>
+            <br>
+            <input id="_name" name="Gender" placeholder="1 for MALE/0 for FEMALE" type="text" class="validate">
+        </div>
+
         <div class="input-field col s4">
 
-          <label for="last_name"><b>Age</b></label>
-            <br>
-          <input id="last_name" name="Age" placeholder="Age"  type="text" class="validate">
-
-        </div>
+            <label for="last_name"><b>Age</b></label>
+              <br>
+            <input id="last_name" name="Age" placeholder="Age"  type="text" class="validate">
+  
+          </div>
 
         <div class="input-field col s4">
             <label for="_name"><b>Tenure</b></label>
@@ -88,17 +101,6 @@
             <input id="_name" name="Salary" placeholder="Estimated Salary" type="text" class="validate">
         </div>
 
-        <div class="input-field col s4">
-            <label for="_name"><b>Gender</b></label>
-            <br>
-            <input id="_name" name="Gender" placeholder="M for MALE/F for FEMALE" type="text" class="validate">
-        </div>
-
-        <div class="input-field col s4">
-            <label for="_name"><b>Location</b></label>
-            <br>
-            <input id="_name" name="Location" placeholder="Spain/France/Germany" type="text" class="validate">
-        </div>
 
       </div>
 
@@ -159,7 +161,7 @@
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src=".js/materialize.js"></script>
+  <script src="../static/js/materialize.js"></script>
   <script src="js/init.js"></script>
 
   </body>
