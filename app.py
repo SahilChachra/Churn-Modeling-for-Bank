@@ -1,11 +1,11 @@
 from flask import Flask, request, url_for, redirect, render_template
-import pickle
+from tensorflow import keras
 
 import numpy as np
 
 app = Flask(__name__, template_folder='./templates', static_folder='./static')
 
-model = pickle.load(open('./churn-model-85','rb'))
+model = keras.models.load_model("./churn-model-85.h5")
 @app.route('/')
 
 def hello_world():
@@ -37,12 +37,14 @@ def predict():
         x = 0
     features[8]=x
     print(features)
-    final = [np.array(features)]
+    final = np.array(features).reshape((1,10))
     #print(type(final))
     print(final)
     #print(final.shape)
     pred = model.predict(final)
-    if pred >= 0.5:
+    print(pred)
+    print(pred[0][0])
+    if pred[0][0] >= 0.5:
         output = "True"
     else:
         output = "False"
